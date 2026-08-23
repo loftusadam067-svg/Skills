@@ -1,0 +1,29 @@
+name: Validate Universal Liquid Glass skill
+
+on:
+  push:
+    paths:
+      - 'universal-liquid-glass/**'
+      - '.github/workflows/validate-universal-liquid-glass.yml'
+  pull_request:
+    paths:
+      - 'universal-liquid-glass/**'
+      - '.github/workflows/validate-universal-liquid-glass.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Validate skill package
+        run: python universal-liquid-glass/scripts/validate_skill.py
